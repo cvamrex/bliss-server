@@ -202,5 +202,33 @@ exports.get_gym_details = function(req, res, next) {
             res.status(500).json({ success: false, error: 'Internal server error' });
         });
 };
+exports.toggle_active = function(req, res, next) {
+    const { id } = req.body;
+    Gym.findById({_id:id})  
+        .then(gym => {
+            if (!gym) {
+                res.status(404).json({ success: false, message: 'Gym not found' });
+                return;  
+            }
+            Gym.findByIdAndUpdate(id, { $set: { active: !gym.active } }, { new: true })
+                .then(updatedGym => {
+                    if (updatedGym) {
+                        res.json({ success: true, active: updatedGym.active });
+                    } else {
+                        res.status(404).json({ success: false, message: 'No gym updated' });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating Gym:', error);
+                    res.status(500).json({ success: false, error: 'Internal server error' });
+                });
+        })
+        .catch(error => {
+            console.error('Error finding Gym:', error);
+            res.status(500).json({ success: false, error: 'Internal server error' });
+        });
+};
+
+
 
 

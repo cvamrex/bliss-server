@@ -25,6 +25,7 @@ router.post('/edit/gym/packages',GymController.edit_gym_packages);
 router.post('/get/gym/profile',GymController.get_gym_profile);
 router.post('/get/gyms',GymController.get_gyms);
 router.post('/get/gym/details',GymController.get_gym_details);
+router.post('/toggle/active',GymController.toggle_active);
 
 // reel
 router.post('/create/reel',ReelsController.create_reel)

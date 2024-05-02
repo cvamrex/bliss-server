@@ -47,7 +47,7 @@ var GymSchema = new Schema({
     },
     gender:{
         type:Number,
-        required: false,
+        required:false,
 
     },
     amenities:{
@@ -80,6 +80,11 @@ var GymSchema = new Schema({
         type: [String],
         required: false
     },
+    active:{
+        type:Boolean,
+        default:false,
+        required:true
+    }
 });
 
 
