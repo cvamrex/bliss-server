@@ -1,6 +1,6 @@
 const axios = require("axios");
 require('dotenv').config();
-const { generateOTP } = require('../../utils/generateOTP');
+const { generateOTP } = require('../../utils/generateOtp');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 const AWS = require('aws-sdk');
