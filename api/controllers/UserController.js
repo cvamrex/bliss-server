@@ -92,7 +92,7 @@ exports.toggle_favourite = function(req, res, next) {
     User.findOne({_id:id}).then(user =>{
         let user_fav = user.favourites.indexOf(gym_id);
         if(user_fav !== -1){
-            user.likes.splice(user_fav, 1);
+            user.favourites.splice(user_fav, 1);
             user.save();
             res.json({success:true, message:"Removed from favourites"})
         }
@@ -103,7 +103,7 @@ exports.toggle_favourite = function(req, res, next) {
         }
             
     }).catch(err =>{
-         res.json({success:false, message:"Error while performing favourite"})
+         res.json({success:false, message:`Error while performing favourite ${err}`})
     })
 }
 

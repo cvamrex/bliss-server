@@ -26,7 +26,7 @@ router.post('/get/gym/profile',GymController.get_gym_profile);
 router.post('/get/gyms',GymController.get_gyms);
 router.post('/get/gym/details',GymController.get_gym_details);
 router.post('/toggle/active',GymController.toggle_active);
-
+router.post('/search/gyms',GymController.search_gyms);
 // reel
 router.post('/create/reel',ReelsController.create_reel)
 router.post('/get/reels',ReelsController.get_reels)

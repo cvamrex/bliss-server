@@ -229,6 +229,23 @@ exports.toggle_active = function(req, res, next) {
         });
 };
 
+exports.search_gyms = function(req, res) {
+    const name = req.body.name; 
+    if (!name) {
+        return res.json({ success: false, message: "No search term provided" });
+    }
+    Gym.find({ name: { $regex: new RegExp(name, 'i') } }) // Use regex to perform a case-insensitive search
+    .then(result => {
+        if (result && result.length > 0) { // Check if any gyms are found
+            res.json({ success: true, gym: result });
+        } else {
+            res.json({ success: false, message: "No such gym exists" });
+        }
+    }).catch(err => {
+        console.error(err); // Log the error for debugging purposes
+        res.json({ success: false, message: "Error while searching gyms" });
+    });
+};
 
 
 
