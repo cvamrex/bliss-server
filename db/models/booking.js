@@ -17,13 +17,13 @@ var BookingSchema = new Schema({
         type:String,
         required: false,
 
-    }
-    time:{
+    },
+    day:{
         type:String,
         required: false,
 
     },
-    address:{
+    time:{
         type:String,
         required: false,
 
@@ -35,8 +35,12 @@ var BookingSchema = new Schema({
     },
     price:{
         type:String,
-        required: false,
+        required: true,
+    },
+    payment_id:{
+        type:String,
+        required:true,
+    },
 
-    }
-});
+}, { timestamps: true });
 module.exports = mongoose.model('Booking',BookingSchema);

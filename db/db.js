@@ -23,6 +23,8 @@ connect();
 const user = require('./models/user');
 const gym = require('./models/gym');
 const reels = require('./models/reels');
+const booking = require('./models/booking');
+const Transaction = require('./models/transaction');
 // const curation = require('./models/curation');
 // const chip = require('./models/chip');
 // const savedCuration = require('./models/savedCuration');

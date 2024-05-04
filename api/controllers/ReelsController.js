@@ -19,7 +19,7 @@ exports.create_reel = function(req, res, next) {
         });
 };
 exports.get_reels = function(req, res, next) {
-    Reels.find({})
+    Reels.find({}).sort('-createdAt')
         .then(reels => {
             if (reels.length > 0) {
                 res.json({ success: true, reels: reels });
@@ -35,7 +35,7 @@ exports.get_reels = function(req, res, next) {
 
 exports.get_user_reel = function(req, res, next) {
     const { id } = req.body;
-    Reels.find({user:id })
+    Reels.find({user:id }).sort('-createdAt')
         .then(reel => {
             if (reel) {
                 res.json({ success: true, reel: reel });

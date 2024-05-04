@@ -3,9 +3,6 @@ var Schema = mongoose.Schema;
 
 
 var TransactionSchema = new Schema({
-    date:{
-        type:String,
-    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -16,12 +13,19 @@ var TransactionSchema = new Schema({
         ref: 'Gym',
         required:true
     },
+    date:{
+        type:String,
+    },
     price : {
         type : String,
         required: false,
 
     },
-});
+    payment_id : {
+        type : String,
+        required: false,
+    },
+}, { timestamps: true });
 
 
 module.exports = mongoose.model('Transaction',TransactionSchema);
