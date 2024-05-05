@@ -23,9 +23,9 @@ exports.create_user = function(req,res,next){
         });
 }
 exports.edit_profile = function(req,res,next){
-    const {id,name,age,phone,gender,email,image,weight,height,weight_type,height_type} = req.body;
+    const {id,name,age,gender,image,weight,height,weight_type,height_type} = req.body;
     const user_data = {
-        name,age,phone,gender,email,image,weight,height,weight_type,height_type
+        name,age,gender,image,weight,height,weight_type,height_type
     };
     User.findByIdAndUpdate(id, user_data, { new: true })  
         .then(user => {

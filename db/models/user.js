@@ -33,15 +33,10 @@ var UserSchema = new Schema({
     age:{
         type:String,
         required: false,
-
-    },
-    email:{
-        type:String,
     },
     gender:{
         type:Number,
         required: false,
-
     },
     favourites: [{
         type: mongoose.Schema.Types.ObjectId,
