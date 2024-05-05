@@ -8,6 +8,11 @@ var BookingSchema = new Schema({
         ref: 'User',
         required:true
     },
+    receive:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required:true
+    },
     gym: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Gym',

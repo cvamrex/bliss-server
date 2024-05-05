@@ -40,42 +40,41 @@ client.messages.create({
 .catch((error) => res.json({success:false}))
 }
 
-exports.verifyOtp =async function(req,res){
-  const {phone} = req.body;
+exports.verifyOtp = async function(req, res) {
+  const { phone } = req.body;
   console.log("Received data:", req.body);
-  if (phone=="") {
-    return res.status(400).json({success: false, message: "Phone number is required"});
+  
+  if (!phone) {
+    return res.status(400).json({ success: false, message: "Phone number is required" });
   }
-  const user_data = {
-    "phone":phone,
-};
-User.findOne({phone:phone}).then(user =>{
-    if(user){
-         const user_data = {
-            "_id":user._id,
-            "phone":user.phone,
-        }; 
-        res.json({success:true,message:"User auth successful",user:user,logged:true});
-    }else{
-        User.create({phone}).then(user =>{
-            if(user){
-                const user_data = {
-                    "_id":user._id,
-                    "phone":user.phone,
-                };
-                res.json({success:true,message:"User auth successful",user:user,logged:false});
-            }else{
-                res.json({success:false,message:"Cannot add a user"});
-            }
-        }).catch(err =>{
-            console.log(err);
-            res.json({success:false,message:"Cannot add a user"});
-        });
-    }
 
-}).catch(err =>{
-    res.json({success:false,message:"User auth failed"});
-});
-}
+  try {
+    let user = await User.findOne({ phone: phone });
+    if (user) {
+      return res.json({
+        success: true,
+        message: "User auth successful",
+        user: user,
+        logged: true
+      });
+    } else {
+      user = await User.create({ phone: phone });
+      if (user) {
+        return res.json({
+          success: true,
+          message: "User auth successful",
+          user: user,
+          logged: false
+        });
+      } else {
+        return res.status(500).json({ success: false, message: "Cannot add a user" });
+      }
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ success: false, message: "User auth failed" });
+  }
+};
+
    
   

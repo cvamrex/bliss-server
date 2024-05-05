@@ -5,7 +5,6 @@ var Gym = mongoose.model('Gym');
 
 exports.edit_gym_details = function(req, res, next) {
     const { user, name, address, city, opening_time, closing_time, gender, about, amenities } = req.body;
-
     const gymData = {
         user,
         name,

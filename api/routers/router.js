@@ -19,7 +19,9 @@ router.post('/get/favourites',UserController.get_favourites);
 router.post('/toggle/favourite',UserController.toggle_favourite);
 
 // create-gym
-router.post('/edit/gym/details',GymController.edit_gym_slots);
+router.post('/edit/gym/slots',GymController.edit_gym_slots);
+router.post('/edit/gym/details',GymController.edit_gym_details);
+router.post('/edit/gym/cover',GymController.edit_gym_cover);
 router.post('/edit/gym/packages',GymController.edit_gym_packages);
 
 // get-gym
@@ -39,6 +41,8 @@ router.post('/create/booking',BookingController.create_booking);
 router.post('/get/booking',BookingController.get_booking);
 router.post('/create/transaction',BookingController.create_transaction);
 router.post('/get/transaction',BookingController.get_transaction);
+router.post('/get/owner/booking',BookingController.get_owner_booking);
+router.post('/get/owner/transaction',BookingController.get_owner_transaction);
 
 
 module.exports = router;

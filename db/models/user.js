@@ -29,6 +29,7 @@ var UserSchema = new Schema({
     phone : {
         type : String,
         required: [true, 'Phone number is required'],
+        unique: true,
     },
     age:{
         type:String,

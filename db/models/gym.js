@@ -20,7 +20,7 @@ var GymSchema = new Schema({
     },
     name:{
         type:String,
-        required:true,
+        required:false,
     },
     images: {
         type: [String],
@@ -33,7 +33,7 @@ var GymSchema = new Schema({
     },
     address:{
         type:String,
-        required:true,
+        required:false,
     },
     opening_time:{
         type:String,
@@ -70,7 +70,7 @@ var GymSchema = new Schema({
     },
     city:{
         type:String,
-        required:true,
+        required:false,
     },
     morning_time:{
         type: [String],
