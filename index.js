@@ -142,8 +142,6 @@ app.post('/api/upload/reel', upload.single('file'), async (req, res) => {
       Body: file.buffer,
       ContentType: 'video/mp4',
     };
-    console.log(putObjectParams);
-
     await s3Client.send(new PutObjectCommand(putObjectParams));
     const videoUrl = `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/reels/video_${myUUID}.mp4`;
 
@@ -159,7 +157,8 @@ app.post('/api/upload/reel', upload.single('file'), async (req, res) => {
 app.get('/', (req, res) => {
  res.send({message: "Welcome to Blissbody Updated"});
 })
-const port = 3001;
+const port = 3000;
+
 
 app.listen(port, '0.0.0.0', () => {
  console.log(`Server running at http://localhost:${port}`)
