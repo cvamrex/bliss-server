@@ -22,6 +22,11 @@ var ReelsSchema = new Schema({
         type:String,
         required: false,
 
+    },
+    type:{
+        type:String,
+        required: true,
+
     }
 }, { timestamps: true });
 

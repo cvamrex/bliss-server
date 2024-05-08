@@ -72,7 +72,6 @@ exports.get_name = function(req, res, next) {
 };
 exports.get_favourites = function(req, res, next) {
     const { id } = req.body;
-
     User.findOne({ _id: id })
         .populate('favourites') 
         .then(user => {

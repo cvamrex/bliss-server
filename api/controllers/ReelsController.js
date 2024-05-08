@@ -2,12 +2,13 @@ var mongoose = require('mongoose');
 var Reels = mongoose.model('Reels');
 
 exports.create_reel = function(req, res, next) {
-    const { user, url,name,image} = req.body;
+    const { user, url,name,image,type} = req.body;
     const reelData = {
         user,
         url,
         name,
-       image
+       image,
+       type,
     };
     Reels.create(reelData)
         .then(() => {

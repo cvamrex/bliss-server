@@ -11,6 +11,21 @@ const PackageSchema = new Schema({
         required: true
     }
 });
+const ReviewSchema = new Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required:true
+    },
+    rating: {
+        type: String,
+        required: true
+    },
+    review: {
+        type: String, 
+        required: true
+    }
+});
 
 var GymSchema = new Schema({
     user: {
@@ -84,7 +99,12 @@ var GymSchema = new Schema({
         type:Boolean,
         default:false,
         required:true
-    }
+    },
+    machines:{
+        type: [String],
+        required: false
+    },
+    reviews: [ReviewSchema]
 });
 
 

@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Gym = mongoose.model('Gym');
 
 exports.edit_gym_details = function(req, res, next) {
-    const { user, name, address, city, opening_time, closing_time, gender, about, amenities } = req.body;
+    const { user, name, address, city, opening_time, closing_time, gender, about, amenities,machines } = req.body;
     const gymData = {
         user,
         name,
@@ -14,8 +14,10 @@ exports.edit_gym_details = function(req, res, next) {
         closing_time,
         gender,
         about,
-        amenities
+        amenities,
+        machines
     };
+    console.log(machines);
 
     Gym.findOne({ user })
         .then(existingGym => {
@@ -153,12 +155,52 @@ exports.edit_gym_packages = function(req, res, next) {
             res.status(500).json({ error: 'Internal server error' });
         });
 };
+exports.edit_gym_reviews = function(req, res) {
+    const { id, reviews } = req.body;
+    Gym.findOne({ _id: id }) 
+        .then(existingGym => {
+            if (existingGym) {
+                Gym.findOneAndUpdate({ _id: id }, { $push: { reviews: reviews } }, { new: true })
+                    .then(updatedGym => {
+                        res.json({ success: true, message: 'Review added to Gym successfully', data: updatedGym });
+                    })
+                    .catch(error => {
+                        console.error('Error updating Gym:', error);
+                        res.status(500).json({ success: false, error: 'Internal server error' });
+                    });
+            } else {
+                // If gym does not exist, handle it appropriately
+                res.status(404).json({ success: false, message: 'Gym not found' });
+            }
+        })
+        .catch(error => {
+            console.error('Error finding Gym:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        });
+};
+
 exports.get_gym_profile = function(req, res, next) {
     const { user } = req.body;
     Gym.findOne({ user })
         .then(gym => {
             if (gym) {
                 res.json({ success: true, gym: gym });
+            } else {
+                res.status(404).json({ success: false, message: 'Gym not found' });
+            }
+        })
+        .catch(error => {
+            // Handle errors that occur during the find operation
+            console.error('Error finding Gym:', error);
+            res.status(500).json({ success: false, error: 'Internal server error' });
+        });
+};
+exports.get_gym_reviews = function(req, res, next) {
+    const { id } = req.body;
+    Gym.findOne({ _id:id })
+        .then(gym => {
+            if (gym) {
+                res.json({ success: true, reviews: gym.reviews });
             } else {
                 res.status(404).json({ success: false, message: 'Gym not found' });
             }

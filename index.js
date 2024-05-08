@@ -111,6 +111,31 @@ app.post('/api/upload/cover', upload.array('file'), async (req, res) => {
     res.status(500).send('Error uploading images');
   }
 });
+app.post('/api/reel/image', upload.array('file'), async (req, res) => {
+  try {
+    const myUUID = uuidv4();
+    const files = req.files;
+    let uploadPromises = files.map((file, index) => {
+      const putObjectParams = {
+        Bucket: process.env.AWS_S3_BUCKET,
+        Key: `reels/image_${myUUID}_${index}.jpg`,
+        Body: file.buffer,
+        ContentType: 'image/jpeg',
+      };
+      return s3Client.send(new PutObjectCommand(putObjectParams));
+    });
+
+    await Promise.all(uploadPromises);
+    let imageUrls = files.map((file, index) => 
+      `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/reels/image_${myUUID}_${index}.jpg`
+    );
+    console.log(imageUrls);
+    res.json({ urls: imageUrls });
+  } catch (error) {
+    console.error('Error uploading images:', error);
+    res.status(500).send('Error uploading images');
+  }
+});
 app.post('/api/upload/video', upload.single('file'), async (req, res) => {
   try {
     const myUUID = uuidv4();
