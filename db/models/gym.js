@@ -37,6 +37,16 @@ var GymSchema = new Schema({
         type:String,
         required:false,
     },
+    link:{
+        type:String,
+        required:false,
+
+    },
+    phone:{
+        type:String,
+        required:false,
+
+    },
     images: {
         type: [String],
         required: false

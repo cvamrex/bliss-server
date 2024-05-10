@@ -101,10 +101,10 @@ exports.get_admin_transactions = function(req, res, next) {
         });
 };
 exports.create_gym = function(req, res, next) {
-    const { user, name, address, city, opening_time, closing_time, gender, about, amenities,machines,
+    const { user, name, address, city,link,phone, opening_time, closing_time, gender, about, amenities,machines,
         images,video,hour_package,packages,days,morning_time,evening_time,active } = req.body;
     const gymData = {
-        user, name, address, city, opening_time, closing_time, gender, about, amenities,machines,
+        user, name, address, city,link,phone, opening_time, closing_time, gender, about, amenities,machines,
         images,video,hour_package,packages,days,morning_time,evening_time,active
     };
     Gym.create(gymData)
@@ -118,10 +118,10 @@ exports.create_gym = function(req, res, next) {
     
 };
 exports.edit_admin_gym = function(req, res, next) {
-    const {id, user, name, address, city, opening_time, closing_time, gender, about, amenities,machines,
+    const {id, user, name, address, city, link,phone,opening_time, closing_time, gender, about, amenities,machines,
         images,video,hour_package,packages,days,morning_time,evening_time,active } = req.body;
     const gymData = {
-        user, name, address, city, opening_time, closing_time, gender, about, amenities,machines,
+        user, name, address, city,link,phone, opening_time, closing_time, gender, about, amenities,machines,
         images,video,hour_package,packages,days,morning_time,evening_time,active
     };
     Gym.create(gymData)

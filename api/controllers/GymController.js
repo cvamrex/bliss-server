@@ -4,12 +4,14 @@ var mongoose = require('mongoose');
 var Gym = mongoose.model('Gym');
 
 exports.edit_gym_details = function(req, res, next) {
-    const { user, name, address, city, opening_time, closing_time, gender, about, amenities,machines } = req.body;
+    const { user, name, address, city,link,phone, opening_time, closing_time, gender, about, amenities,machines } = req.body;
     const gymData = {
         user,
         name,
         address,
         city,
+        link,
+        phone,
         opening_time,
         closing_time,
         gender,
@@ -17,7 +19,6 @@ exports.edit_gym_details = function(req, res, next) {
         amenities,
         machines
     };
-    console.log(machines);
 
     Gym.findOne({ user })
         .then(existingGym => {
