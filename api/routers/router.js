@@ -8,6 +8,7 @@ const GymController = require('../controllers/GymController');
 const ReelsController = require('../controllers/ReelsController');
 const BookingController = require('../controllers/BookingController');
 const AdminController = require('../controllers/AdminController');
+const PlanController = require('../controllers/PlanController');
 
 // create-user
 router.post('/send-otp',AuthController.sendOtp);
@@ -58,6 +59,11 @@ router.post('/get/admin/transactions',AdminController.get_admin_transactions);
 router.post('/create/gym',AdminController.create_gym);
 router.post('/edit/admin/gym',AdminController.edit_admin_gym);
 router.post('/get/admin/gyms',AdminController.get_admin_gyms);
+
+// plan
+router.post('/edit/plans',PlanController.edit_plans);
+router.post('/get/plans',PlanController.get_plans);
+
 
 
 module.exports = router;
