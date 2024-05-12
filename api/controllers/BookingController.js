@@ -57,7 +57,7 @@ exports.get_owner_booking = function(req, res, next) {
 };
 exports.get_owner_transaction = function(req, res, next) {
     const { receive } = req.body;
-    Transaction.find({ receive }).populate('gym', 'name').populate('user', 'name').sort('-createdAt')
+    Transaction.find({ receive }).populate('gym', 'name').populate('user', 'name').populate('receive', 'name').sort('-createdAt')
         .then(trans => {
             if (trans) {
                 res.json({ success: true, transaction: trans });
@@ -72,7 +72,7 @@ exports.get_owner_transaction = function(req, res, next) {
 };
 exports.get_transaction = function(req, res, next) {
     const { user } = req.body;
-    Transaction.find({ user }).populate('gym', 'name').populate('user', 'name').sort('-createdAt')
+    Transaction.find({ user }).populate('gym', 'name').populate('user', 'name').populate('receive', 'name').sort('-createdAt')
         .then(trans => {
             if (trans) {
                 res.json({ success: true, transaction: trans });
@@ -105,3 +105,4 @@ exports.create_transaction = function(req,res,next){
         res.status(500).json({ success: false, error: 'Internal server error' });
     });
 }
+

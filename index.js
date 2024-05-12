@@ -5,15 +5,19 @@ const axios = require("axios");
 const bodyParser = require('body-parser');
 const db = require('./db/db');
 const multer = require('multer');
+const Razorpay = require('razorpay');
 const AWS = require('aws-sdk');
 const upload = multer();
 const { v4: uuidv4 } = require('uuid');
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+require('dotenv').config();
+
 AWS.config.update({
   region: process.env.AWS_REGION,
   accessKeyId: process.env.AWS_ACCESS_KEY,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
+
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
   credentials: {
@@ -22,9 +26,11 @@ const s3Client = new S3Client({
   }
 });
 
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY,
+  key_secret: process.env.RAZORPAY_KEY_SECRET
+});
 
-
-require('dotenv').config();
 
 app.use(express.json());
 app.use(cors());
@@ -177,6 +183,90 @@ app.post('/api/upload/reel', upload.single('file'), async (req, res) => {
     res.status(500).send('Error uploading video');
   }
 });
+
+app.post('/owner/onboard', async (req, res) => {
+  try {
+    const {user, name, email, phone, bank_account, ifsc } = req.body;
+    const myUUID = uuidv4();
+
+    const contactData = {
+      user,
+      name,
+      email,
+      phone,
+      type: 'customer',
+      reference_id: myUUID, 
+    };
+
+    const contactResponse = await razorpay.contacts.create(contactData);
+
+    const accountData = {
+      contact_id: contactResponse.id,
+      account_type: 'bank_account',
+      bank_account: {
+        name,
+        account_number: bank_account,
+        ifsc
+      }
+    };
+
+    const accountResponse = await razorpay.accounts.create(accountData);
+
+    res.json({
+      success: true,
+      message: 'Gym owner registered successfully!',
+      data: accountResponse
+    });
+
+  } catch (error) {
+    console.error('Error in registering gym owner:', error);
+    res.status(500).send({
+      success: false,
+      message: 'Failed to register gym owner',
+      error: error.message
+    });
+  }
+});
+
+app.post('/capture/payment', async (req, res) => {
+  const { paymentId, ownerId } = req.body;
+  try {
+    const totalAmount = 1000 * 100; 
+    const captureResponse = await razorpay.payments.capture(paymentId, totalAmount);
+
+    const splitDetails = {
+      settle: true,
+      transfers: [
+        {
+          account: ownerId, 
+          amount: 990 * 100, 
+          currency: "INR",
+          on_hold: false,
+          notes: {
+            description: "Payment for gym services"
+          }
+        }
+      ]
+    };
+
+    const splitResponse = await razorpay.payments.transfer(paymentId, splitDetails);
+
+    res.json({
+      success: true,
+      message: 'Payment captured and split successfully',
+      data: splitResponse
+    });
+  } catch (error) {
+    console.error('Error in capturing and splitting payment:', error);
+    res.status(500).send({
+      success: false,
+      message: 'Failed to capture and split payment',
+      error: error.message
+    });
+  }
+})
+
+
 
 
 app.get('/', (req, res) => {

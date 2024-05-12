@@ -47,6 +47,29 @@ var GymSchema = new Schema({
         required:false,
 
     },
+    email:{
+        type:String,
+        required:false,
+
+    },
+    bank_account:{
+        type:String,
+        required:false,
+
+    },
+    account_id:{
+        type:String,
+        required:false,
+    },
+    ifsc:{
+        type:String,
+        required:false,
+
+    },
+    account_id:{
+        type:String,
+        required:false,
+    },
     images: {
         type: [String],
         required: false
