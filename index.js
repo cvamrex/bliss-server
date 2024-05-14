@@ -67,6 +67,7 @@ app.get('/api/places/autocomplete', async (req, res) => {
       res.status(500).json({ error: error.message });
   }
 });
+
 app.post('/api/upload/image', upload.array('file'), async (req, res) => {
   try {
     const myUUID = uuidv4();
@@ -117,6 +118,7 @@ app.post('/api/upload/cover', upload.array('file'), async (req, res) => {
     res.status(500).send('Error uploading images');
   }
 });
+
 app.post('/api/reel/image', upload.array('file'), async (req, res) => {
   try {
     const myUUID = uuidv4();
@@ -142,6 +144,7 @@ app.post('/api/reel/image', upload.array('file'), async (req, res) => {
     res.status(500).send('Error uploading images');
   }
 });
+
 app.post('/api/upload/video', upload.single('file'), async (req, res) => {
   try {
     const myUUID = uuidv4();

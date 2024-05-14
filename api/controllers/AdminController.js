@@ -149,3 +149,18 @@ exports.get_admin_gyms = function(req, res, next) {
             res.status(500).json({ success: false, error: 'Internal server error' });
         });
 };
+
+exports.get_all_gyms = function(req, res, next) {
+    Gym.find({})
+        .then(gym => {
+            if (gym) {
+                res.json({ success: true, gym: gym });
+            } else {
+                res.json({ success: false, message: 'Gym not found' });
+            }
+        })
+        .catch(error => {
+            console.error('Error finding Gym:', error);
+            res.status(500).json({ success: false, error: 'Internal server error' });
+        });
+};

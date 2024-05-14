@@ -30,6 +30,7 @@ router.post('/edit/gym/reviews',GymController.edit_gym_reviews);
 // get-gym
 router.post('/get/gym/profile',GymController.get_gym_profile);
 router.post('/get/gyms',GymController.get_gyms);
+router.post('/get/all/gyms',AdminController.get_all_gyms);
 router.post('/get/gym/details',GymController.get_gym_details);
 router.post('/get/gym/reviews',GymController.get_gym_reviews);
 router.post('/toggle/active',GymController.toggle_active);
@@ -40,7 +41,6 @@ router.post('/get/reels',ReelsController.get_reels);
 router.post('/get/user/reel',ReelsController.get_user_reel);
 
 // booking
-
 router.post('/create/booking',BookingController.create_booking);
 router.post('/get/booking',BookingController.get_booking);
 router.post('/create/transaction',BookingController.create_transaction);
