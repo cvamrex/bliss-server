@@ -34,7 +34,7 @@ const client = new twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH);
 client.messages.create({
     body:  `${otp} is your verification code for Blissbody`,
     to: `+91${phone}`,  
-    from: '+14193180766' 
+    from: '+17344475086' 
 })
 .then((message) => res.json({success:true,otp:otp}))
 .catch((error) => res.json({success:false}))
