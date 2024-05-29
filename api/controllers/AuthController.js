@@ -10,25 +10,8 @@ const twilio = require('twilio');
 
 exports.sendOtp =async function(req,res){
     const {phone} = req.body;
-    const otp = generateOTP();
-            
-    // const params = {
-    //   Message: `${otp} is your verification code for Blissbody.`,
-    //   PhoneNumber: phone,
-    //   MessageAttributes: {
-    //     'AWS.SNS.SMS.SMSType': {
-    //       DataType: 'String',
-    //       StringValue: 'Transactional' 
-    //     }
-    //   }
-    // };
-    // sns.publish(params).promise()
-    //   .then(data => {
-    //     res.json({success:true,otp:otp}); 
-    //   })
-    //   .catch(err => {
-    //     res.json({success:false,error:err});
-    //   });
+    let otp = generateOTP();
+  
 const client = new twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH);
   if(phone==="7983448199"){
     otp ="225522"
